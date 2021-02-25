@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+">
+    <bean class="com.l9.q2.xml.bean.XmlBean">
+        <property name="id" value="1"></property>
+        <property name="name" value="XmlBean"></property>
+    </bean>
+
+    <bean class="com.l9.q3.bean.Student" name="student1">
+        <property name="id" value="1"></property>
+        <property name="name" value="小哥哥"></property>
+    </bean>
+
+    <bean class="com.l9.q3.bean.Student" name="student2">
+        <property name="id" value="2"></property>
+        <property name="name" value="小姊姊"></property>
+    </bean>
+
+    <bean class="com.l9.q3.bean.Klass" name="klass">
+        <property name="id" value="10"></property>
+        <property name="name" value="甲"></property>
+        <property name="location" value="一樓"></property>
+        <property name="students">
+            <list>
+                <ref bean="student1"></ref>
+                <ref bean="student2"></ref>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="com.l9.q3.bean.School" name="school">
+        <property name="id" value="100"></property>
+        <property name="name" value="GT學院"></property>
+        <property name="address" value="GeekTime地區"></property>
+        <property name="klasses">
+            <list>
+                <ref bean="klass"></ref>
+             </list>
+        </property>
+    </bean>
+
+ </beans>

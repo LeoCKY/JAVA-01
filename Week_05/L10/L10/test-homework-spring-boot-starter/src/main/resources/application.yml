@@ -1,0 +1,12 @@
+homework:
+  school:
+    name: 即刻大學
+    klass-name:
+      - k1
+      - k2
+      - k3
+    student-name:
+      - s1
+      - s2
+      - s3
+
