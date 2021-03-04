@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      maximum-pool-size: 20
+      max-lifetime: 30000
+      idle-timeout: 30000
+      master:
+        default-package: com.fast.framework.dao.master
+        jdbc-url: jdbc:mysql://localhost:3306/fastblack?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=true
+        username: root
+        password: root
+      slave1:
+        default-package: com.fast.framework.dao.second
+        jdbc-url: jdbc:mysql://localhost:3306/base?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=true
+        username: root
+        password: root
+      slave2:
+        default-package: com.fast.framework.dao.second
+        jdbc-url: jdbc:mysql://localhost:3306/base?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=true
+        username: root
+        password: root
+
+mybatis:
+  config-location: classpath*:/mapper/*/*.xml
+  type-aliases-package: com.fast.framework.model
