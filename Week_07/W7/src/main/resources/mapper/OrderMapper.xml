@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cky.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="cky.model.Order" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="merch_id" property="merchId" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="product_amount_total" property="productAmountTotal" jdbcType="DECIMAL" />
+    <result column="order_amount_total" property="orderAmountTotal" jdbcType="DECIMAL" />
+    <result column="logistics_fee" property="logisticsFee" jdbcType="DECIMAL" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="delivery_addr" property="deliveryAddr" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="INTEGER" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_ip" property="updateIp" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, merch_id, order_no, status, product_amount_total, order_amount_total, 
+    logistics_fee, pay_time, postcode, delivery_addr, version, create_user, create_date, 
+    create_ip, update_user, update_date, update_ip, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cky.model.Order" >
+    insert into tb_order (id, user_id, merch_id, 
+      order_no, status, product_amount_total, 
+      order_amount_total, logistics_fee, pay_time, 
+      postcode, delivery_addr, version, 
+      create_user, create_date, create_ip, 
+      update_user, update_date, update_ip, 
+      is_del)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{merchId,jdbcType=INTEGER}, 
+      #{orderNo,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{productAmountTotal,jdbcType=DECIMAL}, 
+      #{orderAmountTotal,jdbcType=DECIMAL}, #{logisticsFee,jdbcType=DECIMAL}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{postcode,jdbcType=VARCHAR}, #{deliveryAddr,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}, 
+      #{createUser,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{createIp,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=INTEGER}, #{updateDate,jdbcType=TIMESTAMP}, #{updateIp,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cky.model.Order" >
+    insert into tb_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="merchId != null" >
+        merch_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="productAmountTotal != null" >
+        product_amount_total,
+      </if>
+      <if test="orderAmountTotal != null" >
+        order_amount_total,
+      </if>
+      <if test="logisticsFee != null" >
+        logistics_fee,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="deliveryAddr != null" >
+        delivery_addr,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createIp != null" >
+        create_ip,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateIp != null" >
+        update_ip,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="merchId != null" >
+        #{merchId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="productAmountTotal != null" >
+        #{productAmountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmountTotal != null" >
+        #{orderAmountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="logisticsFee != null" >
+        #{logisticsFee,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryAddr != null" >
+        #{deliveryAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createIp != null" >
+        #{createIp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateIp != null" >
+        #{updateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cky.model.Order" >
+    update tb_order
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="merchId != null" >
+        merch_id = #{merchId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="productAmountTotal != null" >
+        product_amount_total = #{productAmountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmountTotal != null" >
+        order_amount_total = #{orderAmountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="logisticsFee != null" >
+        logistics_fee = #{logisticsFee,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryAddr != null" >
+        delivery_addr = #{deliveryAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createIp != null" >
+        create_ip = #{createIp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateIp != null" >
+        update_ip = #{updateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cky.model.Order" >
+    update tb_order
+    set user_id = #{userId,jdbcType=INTEGER},
+      merch_id = #{merchId,jdbcType=INTEGER},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      product_amount_total = #{productAmountTotal,jdbcType=DECIMAL},
+      order_amount_total = #{orderAmountTotal,jdbcType=DECIMAL},
+      logistics_fee = #{logisticsFee,jdbcType=DECIMAL},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      delivery_addr = #{deliveryAddr,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_ip = #{createIp,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_ip = #{updateIp,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

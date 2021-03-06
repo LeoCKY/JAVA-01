@@ -1,6 +1,6 @@
 package cky.aop;
 
-import cky.annorations.ChooseDataSource;
+import cky.annotations.ReadOnly;
 import cky.config.DynamicDataSourceContextHolder;
 import cky.enums.AllDataSourceEnum;
 import org.aspectj.lang.JoinPoint;
@@ -21,23 +21,24 @@ import java.lang.reflect.Method;
 @Order(1)
 @Component
 public class DataSourceAop {
+
     @Value("${spring.datasource.hikari.master.default-package}")
     private String masterPackage;
-    @Value("${spring.datasource.hikari.second.default-package}")
+    @Value("${spring.datasource.hikari.slave1.default-package}")
     private String secondPackage;
 
     public static final Logger logger = LoggerFactory.getLogger(DataSourceAop.class);
 
-    @Pointcut("execution(* com.fast.framework.dao..*.*(..))  ||@annotation(com.fast.common.annotation.ChooseDataSource)")
+    @Pointcut("execution(* cky.dao..*.*(..)) || @annotation(cky.annotations.ReadOnly)")
     public void switchDataSource() {
     }
 
     @Before("switchDataSource()")
     public void doBefore(JoinPoint joinPoint) {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        ChooseDataSource chooseDataSource = method.getAnnotation(ChooseDataSource.class);//獲取方法上的註解
+        ReadOnly chooseDataSource = method.getAnnotation(ReadOnly.class);//獲取方法上的註解
         if (chooseDataSource == null) {
-            chooseDataSource = joinPoint.getTarget().getClass().getAnnotation(ChooseDataSource.class);//獲取類上面的註解
+            chooseDataSource = joinPoint.getTarget().getClass().getAnnotation(ReadOnly.class);//獲取類上面的註解
             if (chooseDataSource == null) {
                 String declaringTypeName = joinPoint.getSignature().getDeclaringTypeName();
                 if (declaringTypeName.startsWith(masterPackage)) {
@@ -46,6 +47,9 @@ public class DataSourceAop {
                 } else if (declaringTypeName.startsWith(secondPackage)) {
                     DynamicDataSourceContextHolder.setDateSourceType(AllDataSourceEnum.SLAVE1.name());
                     logger.info("使用包默認數據源，包={}，數據源={}", secondPackage, AllDataSourceEnum.SLAVE1.name());
+                } else {
+                    DynamicDataSourceContextHolder.setDateSourceType(AllDataSourceEnum.MASTER.name());
+                    logger.info("使用包默認數據源，包={}，數據源={}", masterPackage, AllDataSourceEnum.MASTER.name());
                 }
                 return;
             } else {
@@ -54,14 +58,6 @@ public class DataSourceAop {
         } else {
             logger.info("方法註解生效，切換數據源={}", chooseDataSource.dataSource().name());
         }
-        //獲取註解上的數據源的值的信息
-        String dataSourceName = chooseDataSource.dataSource().name();
-        if (dataSourceName != null) {
-            //給當前的執行SQL的操作設置特殊的數據源的信息
-            DynamicDataSourceContextHolder.setDateSourceType(dataSourceName);
-        }
-        String nowDatasource = "".equals(dataSourceName) ? "默認數據源master" : dataSourceName;
-        logger.info("AOP註解切換數據源，className" + joinPoint.getTarget().getClass().getName() + "methodName" + method.getName() + ";dataSourceName:" + nowDatasource);
     }
 
     @After("switchDataSource()")

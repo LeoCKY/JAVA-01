@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@MapperScan("com.fast.framework.dao")
+@MapperScan("cky.mapper")
 public class HikariConfig {
 
     public static final Logger logger = LoggerFactory.getLogger(HikariConfig.class);

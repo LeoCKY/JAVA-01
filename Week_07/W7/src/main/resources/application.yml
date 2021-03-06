@@ -2,26 +2,35 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
-      driver-class-name: com.mysql.cj.jdbc.Driver
+      driver-class-name: com.mysql.jdbc.Driver
       maximum-pool-size: 20
       max-lifetime: 30000
       idle-timeout: 30000
       master:
-        default-package: com.fast.framework.dao.master
-        jdbc-url: jdbc:mysql://localhost:3306/fastblack?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=true
+        default-package: cky.mapper
+        jdbc-url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=true
         username: root
         password: root
       slave1:
-        default-package: com.fast.framework.dao.second
-        jdbc-url: jdbc:mysql://localhost:3306/base?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=true
+        default-package: cky.mapper
+        jdbc-url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=true
         username: root
         password: root
       slave2:
-        default-package: com.fast.framework.dao.second
-        jdbc-url: jdbc:mysql://localhost:3306/base?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=true
+        default-package: cky.mapper
+        jdbc-url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=true
         username: root
         password: root
 
 mybatis:
-  config-location: classpath*:/mapper/*/*.xml
-  type-aliases-package: com.fast.framework.model
+  config-location: classpath*:/mapper/*.xml
+  type-aliases-package: cky.model
+
+logging:
+  level:
+    ROOT: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file: /logs/mylog.log
+
